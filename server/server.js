@@ -55,14 +55,15 @@ app.get('/todos/:id', (req, res) => {
         //400 - and send empty body back
     }).catch((e) => {
       res.status(400).send();
-    }) 
+    })
 
 
 
 });
 
-app.listen( process.env.PORT || 3000, () => {
-  console.log("Server stared");
+var port=process.env.PORT || 3000;
+app.listen( port, () => {
+  console.log(`Server started at${port}...`);
 });
 
 module.exports = { app };
