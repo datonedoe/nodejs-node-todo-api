@@ -1,3 +1,7 @@
+require('./config/config');
+
+var port=process.env.PORT;
+
 const _ = require('lodash');
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -116,9 +120,8 @@ app.patch('/todos/:id', (req, res) => {
 
 });
 
-var port=process.env.PORT || 3000;
 app.listen( port, () => {
-  console.log(`Server started at${port}...`);
+  console.log(`Server started at ${port}...`);
 });
 
 module.exports = { app };
