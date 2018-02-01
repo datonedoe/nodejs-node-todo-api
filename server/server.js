@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const {mongoose} = require("./db/mongoose");
 const {Todo} = require('./models/todo');
 const {User} = require('./models/user');
+const {authenticate} = require("./middleware/authenticate");
 const {ObjectID} = require("mongodb");
 const app = express();
 
@@ -122,6 +123,7 @@ app.patch('/todos/:id', (req, res) => {
 
 // POST /users
 app.post("/users", (req, res) => {
+  console.log('/users')
   var body = _.pick(req.body, ['email', 'password']);
   var user = new User(body);
 
@@ -138,6 +140,12 @@ app.post("/users", (req, res) => {
     .catch((e) => {
       res.status(400).send(e);
     })
+})
+
+
+// GET /users/me
+app.get('/users/me', authenticate, (req, res) => {
+  res.send(req.user);
 })
 
 app.listen( port, () => {
